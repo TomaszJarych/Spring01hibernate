@@ -1,24 +1,31 @@
 package pl.coderslab.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class BookDto {
 
 	private Long id;
 	private String title;
-	private String author;
+	private Set<AuthorDto> authors = new HashSet<>();
 	private Integer rating;
 	private PublisherDto publisherDto;
 	
 	private String description;
-	public BookDto(Long id, String title, String author, Integer rating,
-			PublisherDto publisherDto, String description) {
+	
+	
+	
+	
+	public BookDto(Long id, String title, Set<AuthorDto> authors,
+			Integer rating, PublisherDto publisherDto, String description) {
 		this.id = id;
 		this.title = title;
-		this.author = author;
+		this.authors = authors;
 		this.rating = rating;
 		this.publisherDto = publisherDto;
 		this.description = description;
 	}
-	
+
 	public BookDto() {
 	}
 
@@ -30,9 +37,6 @@ public class BookDto {
 		return title;
 	}
 
-	public String getAuthor() {
-		return author;
-	}
 
 	public Integer getRating() {
 		return rating;
@@ -54,9 +58,6 @@ public class BookDto {
 		this.title = title;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
 
 	public void setRating(Integer rating) {
 		this.rating = rating;
@@ -69,13 +70,23 @@ public class BookDto {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+
+	public Set<AuthorDto> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(Set<AuthorDto> authors) {
+		this.authors = authors;
+	}
 
 	@Override
 	public String toString() {
-		return "BookDto [id=" + id + ", title=" + title + ", author=" + author
+		return "BookDto [id=" + id + ", title=" + title + ", authors=" + authors
 				+ ", rating=" + rating + ", publisherDto=" + publisherDto
 				+ ", description=" + description + "]";
 	}
+
 
 	
 }

@@ -33,15 +33,6 @@ public class BookController {
 	@RequestMapping(path = "/addBook", method = RequestMethod.GET)
 	@ResponseBody
 	public String getBook() {
-		BookDto dto = new BookDto();
-		dto.setAuthor("Jan Kowalski");
-		dto.setDescription("Programming");
-		PublisherDto publisherDto = publisherService.find(1L);
-		dto.setPublisherDto(publisherDto);
-		dto.setRating(5);
-		dto.setTitle("Streams basics");
-
-		bookService.save(dto);
 
 		return "Book has been added";
 	}
@@ -60,7 +51,6 @@ public class BookController {
 	public String updateBook(@PathVariable("id") Long id) {
 
 		BookDto book = bookService.find(id);
-		book.setAuthor("Adam Nowak");
 		System.out.println(book);
 		bookService.update(book);
 

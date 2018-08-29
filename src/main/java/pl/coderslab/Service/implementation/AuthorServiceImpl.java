@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.coderslab.DAO.AuthorDao;
+import pl.coderslab.DAO.BookDao;
 import pl.coderslab.Service.AuthorService;
 import pl.coderslab.dto.AuthorDto;
 import pl.coderslab.entity.Author;
@@ -16,10 +17,12 @@ import pl.coderslab.entity.Author;
 public class AuthorServiceImpl implements AuthorService {
 
 	private final AuthorDao dao;
+	private final BookDao bookDao;
 
 	@Autowired
-	public AuthorServiceImpl(AuthorDao dao) {
+	public AuthorServiceImpl(AuthorDao dao, BookDao bookDao) {
 		this.dao = dao;
+		this.bookDao = bookDao;
 	}
 
 	@Override
@@ -58,7 +61,11 @@ public class AuthorServiceImpl implements AuthorService {
 		author.setId(dto.getId());
 		author.setFirstName(dto.getFirstName());
 		author.setLastName(dto.getLastName());
-
+		if (Objects.nonNull(dto.getBooks()) && !dto.getBooks().isEmpty()) {
+            author.setBooks(dto.getBooks().stream()
+                    .map(el ->bookDao.findById(el.getId()))
+                    .collect(Collectors.toSet()));
+        }
 		return author;
 	}
 

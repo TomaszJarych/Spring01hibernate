@@ -8,33 +8,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import pl.coderslab.DAO.AuthorDao;
 import pl.coderslab.DAO.BookDao;
 import pl.coderslab.DAO.PublisherDao;
 import pl.coderslab.DAO.Implementation.BookDaoImplementation;
 import pl.coderslab.Service.BookService;
+import pl.coderslab.dto.AuthorDto;
 import pl.coderslab.dto.BookDto;
+import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Book;
 import pl.coderslab.entity.Publisher;
 @Service
 public class BookServiceImpl implements BookService {
 
 	private final BookDao dao;
-	private final PublisherDao publisherDao; 
+	private final PublisherDao publisherDao;
+	private final AuthorDao authorDao;
 
 	@Autowired
-	public BookServiceImpl(BookDao dao, PublisherDao publisherDao) {
+	public BookServiceImpl(BookDao dao, PublisherDao publisherDao,
+			AuthorDao authorDao) {
 		this.dao = dao;
 		this.publisherDao = publisherDao;
+		this.authorDao = authorDao;
 	}
 
 	@Override
 	public BookDto save(BookDto dto) {
 		Book book = toBookEntity(dto);
-		
+
 		dao.saveToDB(book);
 		return book.toDto();
 	}
-
 
 	@Override
 	public BookDto update(BookDto dto) {
@@ -65,15 +70,25 @@ public class BookServiceImpl implements BookService {
 
 	public Book toBookEntity(BookDto dto) {
 		Book book = new Book();
-		book.setAuthor(dto.getAuthor());
+		if (Objects.nonNull(dto.getAuthors()) && !dto.getAuthors().isEmpty()) {
+			for (AuthorDto authorDto : dto.getAuthors()) {
+				Author author = authorDao.findById(authorDto.getId());
+				if (Objects.nonNull(author)) {
+					book.getAuthors().add(author);
+				}
+			}
+
+		}
+
 		book.setDescription(dto.getDescription());
 		book.setId(dto.getId());
-		
-		Publisher publisher = publisherDao.findById(dto.getPublisherDto().getId());
+
+		Publisher publisher = publisherDao
+				.findById(dto.getPublisherDto().getId());
 		if (Objects.nonNull(publisher)) {
 			book.setPublisher(publisher);
 		}
-		
+
 		book.setRating(dto.getRating());
 		book.setTitle(dto.getTitle());
 

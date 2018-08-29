@@ -26,24 +26,8 @@ public class PublisherController {
 
 	@RequestMapping(path = "/addPublisher", method = RequestMethod.POST)
 	@ResponseBody
-	public PublisherDto addPublisher() {
-		PublisherDto dto = new PublisherDto();
-		dto.setName("Helion");
-
-		PublisherDto dto2 = new PublisherDto();
-		dto2.setName("Oracle Press");
-
-		PublisherDto dto3 = new PublisherDto();
-		dto3.setName("PWN");
-
-		PublisherDto dto4 = new PublisherDto();
-		dto4.setName("Czarne");
-
-		publisherService.save(dto);
-		publisherService.save(dto2);
-		publisherService.save(dto3);
-		publisherService.save(dto4);
-		return dto;
+	public String addPublisher() {
+		return "Publisher has been added";
 
 	}
 
@@ -58,9 +42,6 @@ public class PublisherController {
 	@ResponseBody
 	public PublisherDto updatePublisher(@PathVariable("id") Long id) {
 		PublisherDto dto = publisherService.find(id);
-		dto.setName("HELION");
-		publisherService.update(dto);
-
 		return dto;
 	}
 

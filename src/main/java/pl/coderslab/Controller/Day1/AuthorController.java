@@ -26,12 +26,6 @@ public class AuthorController {
 	@RequestMapping(path = "/addAuthor", method = RequestMethod.POST)
 	@ResponseBody
 	public String addAuthor() {
-		AuthorDto dto1 = new AuthorDto("Jan", "Kowalski");
-		AuthorDto dto2 = new AuthorDto("Adam", "Nowak");
-		AuthorDto dto3 = new AuthorDto("Marcin", "Wójcik");
-		authorService.save(dto1);
-		authorService.save(dto2);
-		authorService.save(dto3);
 		return "Authors has been added";
 	}
 
