@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import pl.coderslab.dto.AuthorDto;
 
@@ -63,6 +64,7 @@ public class Author {
 				+ lastName + "]";
 	}
 
+	@Transient
 	public AuthorDto toDto() {
 
 		AuthorDto dto = new AuthorDto();

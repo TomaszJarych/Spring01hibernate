@@ -10,9 +10,9 @@ public interface BaseCRUD<D, I extends Serializable> {
 
 	public D save(D dto);
 
-	public D update(D dto);
-
 	public D find(I id);
+
+	public D update(D dto);
 	
 	public void remove(I id);
 	
