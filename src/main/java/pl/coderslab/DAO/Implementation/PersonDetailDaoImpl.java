@@ -2,9 +2,14 @@ package pl.coderslab.DAO.Implementation;
 
 import java.util.Collection;
 
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Component;
+
 import pl.coderslab.DAO.PersonDetailDao;
 import pl.coderslab.entity.PersonDetail;
-
+@Component
+@Transactional
 public class PersonDetailDaoImpl extends AbstractDAO<PersonDetail, Long>  implements PersonDetailDao {
 
 	@Override

@@ -26,6 +26,10 @@ public class Person {
 		this.email = email;
 		this.detail = detail;
 	}
+	
+
+	public Person() {
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
