@@ -1,10 +1,18 @@
 package pl.coderslab.entity;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -21,6 +29,9 @@ public class Publisher {
 
 	@Column(name = "name")
 	private String name;
+	
+	@OneToMany(mappedBy="publisher", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+	private Set<Book> books = new HashSet<>();
 
 	public Publisher(Long id, String name) {
 		this.id = id;
@@ -50,14 +61,36 @@ public class Publisher {
 	public String toString() {
 		return "Publisher [id=" + id + ", name=" + name + "]";
 	}
+	
+
+	public Set<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(Set<Book> books) {
+		this.books = books;
+	}
 
 	@Transient
 	public PublisherDto toDto() {
 		PublisherDto dto = new PublisherDto();
 		dto.setId(getId());
 		dto.setName(getName());
+		if (Objects.nonNull(getBooks())&& !getBooks().isEmpty()) {
+        	dto.setBooks(getBooks().stream().map(Book::toDto).collect(Collectors.toSet()));
+		}
 
 		return dto;
 	}
+	
+	@Transient
+    public PublisherDto toSimpleDto() {
+        PublisherDto dto = new PublisherDto();
+        dto.setId(getId());
+        dto.setName(getName());
+        return dto;
+    }
+	
+	
 
 }

@@ -12,17 +12,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.coderslab.Service.BookService;
+import pl.coderslab.Service.PublisherService;
 import pl.coderslab.dto.BookDto;
+import pl.coderslab.dto.PublisherDto;
 
 @Controller
 @RequestMapping("/day1")
 public class BookController {
 
 	private final BookService bookService;
+	private final PublisherService publisherService;
 
 	@Autowired
-	public BookController(BookService bookService) {
+	public BookController(BookService bookService,
+			PublisherService publisherService) {
 		this.bookService = bookService;
+		this.publisherService = publisherService;
 	}
 
 	@RequestMapping(path = "/addBook", method = RequestMethod.GET)
@@ -31,7 +36,8 @@ public class BookController {
 		BookDto dto = new BookDto();
 		dto.setAuthor("Jan Kowalski");
 		dto.setDescription("Programming");
-		dto.setPublisher("Helion");
+		PublisherDto publisherDto = publisherService.find(1L);
+		dto.setPublisherDto(publisherDto);
 		dto.setRating(5);
 		dto.setTitle("Streams basics");
 
@@ -45,7 +51,7 @@ public class BookController {
 	public BookDto getBookByID(@PathVariable("id") Long id) {
 
 		BookDto book = bookService.find(id);
-		
+
 		return book;
 	}
 

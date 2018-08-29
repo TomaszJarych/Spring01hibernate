@@ -9,18 +9,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import pl.coderslab.DAO.BookDao;
+import pl.coderslab.DAO.PublisherDao;
 import pl.coderslab.DAO.Implementation.BookDaoImplementation;
 import pl.coderslab.Service.BookService;
 import pl.coderslab.dto.BookDto;
 import pl.coderslab.entity.Book;
+import pl.coderslab.entity.Publisher;
 @Service
 public class BookServiceImpl implements BookService {
 
-	private BookDao dao;
+	private final BookDao dao;
+	private final PublisherDao publisherDao; 
 
 	@Autowired
-	public BookServiceImpl(BookDao dao) {
+	public BookServiceImpl(BookDao dao, PublisherDao publisherDao) {
 		this.dao = dao;
+		this.publisherDao = publisherDao;
 	}
 
 	@Override
@@ -30,6 +34,7 @@ public class BookServiceImpl implements BookService {
 		dao.saveToDB(book);
 		return book.toDto();
 	}
+
 
 	@Override
 	public BookDto update(BookDto dto) {
@@ -63,7 +68,12 @@ public class BookServiceImpl implements BookService {
 		book.setAuthor(dto.getAuthor());
 		book.setDescription(dto.getDescription());
 		book.setId(dto.getId());
-		book.setPublisher(dto.getPublisher());
+		
+		Publisher publisher = publisherDao.findById(dto.getPublisherDto().getId());
+		if (Objects.nonNull(publisher)) {
+			book.setPublisher(publisher);
+		}
+		
 		book.setRating(dto.getRating());
 		book.setTitle(dto.getTitle());
 

@@ -6,60 +6,77 @@ public class BookDto {
 	private String title;
 	private String author;
 	private Integer rating;
-	private String publisher;
+	private PublisherDto publisherDto;
+	
 	private String description;
-	public BookDto(String title, String author, Integer rating,
-			String publisher, String description) {
+	public BookDto(Long id, String title, String author, Integer rating,
+			PublisherDto publisherDto, String description) {
+		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.rating = rating;
-		this.publisher = publisher;
+		this.publisherDto = publisherDto;
 		this.description = description;
 	}
+	
 	public BookDto() {
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public String getAuthor() {
 		return author;
 	}
+
 	public Integer getRating() {
 		return rating;
 	}
-	public String getPublisher() {
-		return publisher;
+
+	public PublisherDto getPublisherDto() {
+		return publisherDto;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+
 	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
+
+	public void setPublisherDto(PublisherDto publisherDto) {
+		this.publisherDto = publisherDto;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	@Override
 	public String toString() {
 		return "BookDto [id=" + id + ", title=" + title + ", author=" + author
-				+ ", rating=" + rating + ", publisher=" + publisher
+				+ ", rating=" + rating + ", publisherDto=" + publisherDto
 				+ ", description=" + description + "]";
 	}
+
 	
 }
 // 1. W projekcie `Spring01hibernate` utwórz encje o nazwie `Book`.

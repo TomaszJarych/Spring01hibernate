@@ -1,10 +1,16 @@
 package pl.coderslab.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+
 public class PublisherDto {
 	
 	private Long id;
 
 	private String name;
+	
+	private Set<BookDto> books = new HashSet<>();
 
 	
 	
@@ -30,6 +36,14 @@ public class PublisherDto {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<BookDto> getBooks() {
+		return books;
+	}
+
+	public void setBooks(Set<BookDto> books) {
+		this.books = books;
 	}
 
 	@Override
