@@ -4,14 +4,8 @@ import java.util.Collection;
 
 import javax.transaction.Transactional;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import pl.coderslab.DAO.PublisherDao;
-import pl.coderslab.dto.PublisherDto;
 import pl.coderslab.entity.Publisher;
 
 @Component

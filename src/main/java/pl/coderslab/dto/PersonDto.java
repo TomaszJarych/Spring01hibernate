@@ -1,7 +1,5 @@
 package pl.coderslab.dto;
 
-import pl.coderslab.entity.PersonDetail;
-
 public class PersonDto {
 	
 	private Long id;

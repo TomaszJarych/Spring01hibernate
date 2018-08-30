@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import pl.coderslab.dto.AuthorDto;
-import pl.coderslab.dto.BookDto;
 
 @Entity
 @Table(name = "authors")

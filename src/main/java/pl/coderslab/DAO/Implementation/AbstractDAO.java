@@ -8,8 +8,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Component;
 
-import pl.coderslab.DAO.BaseDAO;
-
 @Component
 @Transactional
 public abstract class AbstractDAO<E, I extends Serializable>  {

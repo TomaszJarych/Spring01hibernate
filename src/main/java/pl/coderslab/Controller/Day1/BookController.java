@@ -1,8 +1,6 @@
 package pl.coderslab.Controller.Day1;
 
 import java.util.Collection;
-import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.Service.BookService;
 import pl.coderslab.Service.PublisherService;
 import pl.coderslab.dto.BookDto;
-import pl.coderslab.dto.PublisherDto;
 
 @Controller
 @RequestMapping("/day1")

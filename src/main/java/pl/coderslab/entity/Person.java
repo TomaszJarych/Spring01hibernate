@@ -108,8 +108,13 @@ public class Person {
 
 	@Transient
 	public PersonDto toDto() {
-		PersonDto dto = new PersonDto(getId(), getLogin(), getPassword(), getEmail(), getDetail().toDto());
-		
+		PersonDto dto = new PersonDto();
+		dto.setId(getId());
+		dto.setLogin(getLogin());
+		dto.setPassword(getPassword());
+		if (Objects.nonNull(getDetail())) {
+			dto.setDetail(getDetail().toDto());
+		}
 		return dto;
 		
 	}

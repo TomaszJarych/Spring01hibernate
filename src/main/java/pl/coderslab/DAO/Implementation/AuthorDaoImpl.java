@@ -7,9 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import pl.coderslab.DAO.AuthorDao;
-import pl.coderslab.DAO.BookDao;
 import pl.coderslab.entity.Author;
-import pl.coderslab.entity.Book;
 
 @Component
 @Transactional
