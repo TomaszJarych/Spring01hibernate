@@ -65,11 +65,18 @@
 	font-size: 100%;
 	font-family: serif !important;;
 	text-align: left;
-	vertical-align: top
+	vertical-align: top;
 }
 </style>
 </head>
 <body>
+<div align="center" >
+<h1>Menu</h1>
+<h3><a href="../day2/addBookForm">Add new Book</a></h3>
+
+</div>
+
+
 	<h1 align="center">Book list:</h1>
 	
 	<table class="tg" align="center">
@@ -82,11 +89,11 @@
   </tr>
   <c:forEach items="${books }" var="book"> 
   <tr>
-    <td class="tg-phtq">${book.title}</td>
-    <td class="tg-phtq">${book.description}</td>
-    <td class="tg-phtq">${book.rating}</td>
-    <td class="tg-phtq">${book.getPublisherDto().getName()}</td>
-    <td class="tg-hmp3"></td>
+    <td align="center" class="tg-phtq">${book.title}</td>
+    <td align="center" class="tg-phtq">${book.description}</td>
+    <td align="center" class="tg-phtq">${book.rating}</td>
+    <td align="center" class="tg-phtq">${book.getPublisherDto().getName()}</td>
+    <td align="center" class="tg-hmp3"><a href="getBook/${book.id}" >Edit</a> | <a href="confirmDelete/${book.id}"> Delete</a> </td>
   </tr>
   
   

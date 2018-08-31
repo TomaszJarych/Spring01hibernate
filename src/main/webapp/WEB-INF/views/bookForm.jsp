@@ -18,6 +18,7 @@
 	<h2>Rating: (*number format) <form:input path="rating"/></h2>
 	<h2>Publisher: 
 	<form:select path="publisherDto.id" items="${publishers}" itemValue="id" itemLabel="name"></form:select> </h2>
+	<h2>Autorzy<form:select size="5em" path="authors" multiple="true" items="${authors }" itemLabel="fullName" itemValue="id"  /></h2>
 	
 	<form:hidden path="id" />
 	<input type="submit" value="Send">

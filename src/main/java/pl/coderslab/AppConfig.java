@@ -8,6 +8,7 @@ import javax.validation.Validator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -21,6 +22,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import pl.coderslab.converter.AuthorConverter;
 
 @Configuration
 @EnableWebMvc
@@ -61,5 +64,20 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public Validator validator() {
 		return new LocalValidatorFactoryBean();
 	}
+
+	
+	// konwerter z zadania Dzień 2 - zadanie 4
+	
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addConverter(getAuthorConverter());
+	}
+	
+	@Bean
+	public AuthorConverter getAuthorConverter() {
+		return new AuthorConverter();
+	}
+	
+	
 	
 }

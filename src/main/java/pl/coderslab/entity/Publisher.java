@@ -30,7 +30,7 @@ public class Publisher {
 	@Column(name = "name")
 	private String name;
 	
-	@OneToMany(mappedBy="publisher", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+	@OneToMany(mappedBy="publisher", fetch = FetchType.EAGER)
 	private Set<Book> books = new HashSet<>();
 
 	public Publisher(Long id, String name) {

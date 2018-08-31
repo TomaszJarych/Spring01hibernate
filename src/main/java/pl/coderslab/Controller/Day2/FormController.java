@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,7 @@ import pl.coderslab.Service.AuthorService;
 import pl.coderslab.Service.BookService;
 import pl.coderslab.Service.PersonService;
 import pl.coderslab.Service.PublisherService;
+import pl.coderslab.dto.AuthorDto;
 import pl.coderslab.dto.BookDto;
 import pl.coderslab.dto.PersonDetailDTODay2;
 import pl.coderslab.dto.PersonDto;
@@ -91,34 +93,71 @@ public class FormController {
 
 	// Zadania z działu Formularze-Encje
 
-	@RequestMapping(path="/addBookForm", method=RequestMethod.GET)
+	@RequestMapping(path = "/addBookForm", method = RequestMethod.GET)
 	public String addBookForm(Model model) {
-		 model.addAttribute("book", new BookDto());
+		model.addAttribute("book", new BookDto());
 
 		return "bookForm";
 
 	}
-	
-	@RequestMapping(path="/processBookForm", method=RequestMethod.POST)
+
+	@RequestMapping(path = "/processBookForm", method = RequestMethod.POST)
 	@ResponseBody
-	public BookDto processAddBookForm(@ModelAttribute("book")BookDto dto) {
-		
+	public BookDto processAddBookForm(@ModelAttribute("book") BookDto dto) {
 		return bookService.save(dto);
 	}
-	
-	@RequestMapping(path="/books", method=RequestMethod.GET)
+
+	@RequestMapping(path = "/books", method = RequestMethod.GET)
 	public String getAllBooks(Model model) {
-		
+
 		model.addAttribute("books", bookService.getAll());
-		
+
 		return "allBooks";
 	}
+
+	@RequestMapping(path = "/getBook/{id}", method = RequestMethod.GET)
+	public String editBook(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("book", bookService.find(id));
+
+		return "bookForm";
+	}
+
+	@RequestMapping(path = "/getBook/**", method = RequestMethod.POST)
+	public String processEditBook(@ModelAttribute("book") BookDto dto) {
+		
+		bookService.update(dto);
+
+		return "redirect:/day2/books";
+	}
 	
+	@RequestMapping(path="/confirmDelete/{id}", method=RequestMethod.GET)
+	public String confirmDeleteBook(@PathVariable("id")Long id, Model model) {
+		
+		model.addAttribute("book", bookService.find(id));
+		
+		return "confirmDeletePage";
+	}
+	
+	@RequestMapping(path="/deleteBook/{id}", method=RequestMethod.GET)
+	public String deleteBook(@PathVariable("id")Long id) {
+		
+		bookService.remove(id);
+		
+		return "redirect:/day2/books";
+	}
+	
+	
+
 	// ModelAttributes
-	
+
 	@ModelAttribute("publishers")
-	public Collection<PublisherDto> getpublishers(){
+	private Collection<PublisherDto> getpublishers() {
 		return publisherService.getAll();
+	}
+	
+	@ModelAttribute("authors")
+	private Collection<AuthorDto> getAuthors(){
+		return authorService.getAll();
 	}
 
 }

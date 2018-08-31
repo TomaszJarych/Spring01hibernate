@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public BookDto update(BookDto dto) {
-		Book book = toBookEntity(dto);
+		Book book = updateEntity(dto);
 		dao.updateEntity(book);
 		return book.toDto();
 	}
@@ -77,7 +77,6 @@ public class BookServiceImpl implements BookService {
 			}
 
 		}
-
 		book.setDescription(dto.getDescription());
 		book.setId(dto.getId());
 
@@ -92,4 +91,40 @@ public class BookServiceImpl implements BookService {
 
 		return book;
 	}
+
+	private Book updateEntity(BookDto dto) {
+		Book book = dao.findById(dto.getId());
+		book.setTitle(dto.getTitle());
+		book.setDescription(dto.getDescription());
+		book.setRating(dto.getRating());
+
+		book.setPublisher(publisherDao.findById(dto.getPublisherDto().getId()));
+		
+		if (Objects.nonNull(dto.getAuthors()) && !dto.getAuthors().isEmpty()) {
+			book.getAuthors().clear();
+			dto.getAuthors().stream()
+					.map(el -> authorDao.findById(el.getId()))
+					.forEach(el -> book.getAuthors().add(el));
+		}
+
+		return book;
+	}
+//	private void addRelations(BookDto dto, Book book) {
+//		if (Objects.nonNull(dto.getAuthors()) && !dto.getAuthors().isEmpty()) {
+//			book.getAuthors().clear();
+//			for (AuthorDto auth : dto.getAuthors()) {
+//				Author author = authorDao.findById(auth.getId());
+//				if (Objects.nonNull(author)) {
+//					book.getAuthors().add(author);
+//				}
+//			}
+//		}
+//		if (Objects.nonNull(dto.getPublisherDto())) {
+//			Publisher publisher = publisherDao
+//					.findById(dto.getPublisherDto().getId());
+//			if (Objects.nonNull(publisher)) {
+//				book.setPublisher(publisher);
+//			}
+//		}
+//	}
 }

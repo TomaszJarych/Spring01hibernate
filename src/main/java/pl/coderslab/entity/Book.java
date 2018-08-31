@@ -32,12 +32,12 @@ public class Book {
 	
 	private String title;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Author> authors = new HashSet<>();
 	
 	private Integer rating;
 	
-	@ManyToOne(cascade= {CascadeType.MERGE})
+	@ManyToOne// usuniętą CascadeType.Merge - uniknięcię błędu .IllegalStateException: Multiple representations of the same entity 
 	@JoinColumn(name="publisher_id")
 	private Publisher publisher;
 	

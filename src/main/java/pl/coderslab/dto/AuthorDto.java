@@ -35,6 +35,10 @@ public class AuthorDto {
 		this.lastName = lastName;
 	}
 	
+	public String getFullName() {
+		return firstName + " "+ lastName;
+	}
+	
 	
 	
 	
