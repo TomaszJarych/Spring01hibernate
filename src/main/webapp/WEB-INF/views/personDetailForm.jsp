@@ -11,6 +11,16 @@
 </head>
 <body>
 
+<h1>Menu</h1>
+<h3>	<a href="../day2/addBookForm">Add new Book</a>
+		<a href="../day2/publishers">Publisher list</a>
+		<a href="../day2/authors">Authors list</a>
+		<a href="../day2/books">Book list</a>
+		<a href="../day2/addBookForm">Add new Book</a>
+		<a href="../day2/addAuthor">Add new Author</a>
+		<a href="../day2/publisherForm">Add new Publisher</a>
+</h3>
+
 	<h1>Person Form:</h1>
 	
 	<form:form method="post" modelAttribute="personDetail" >

@@ -183,30 +183,83 @@ public class FormController {
 	}
 
 	@RequestMapping(path = "/editAuthor/{id}", method = RequestMethod.GET)
-	public String editAuthor(@PathVariable("id")Long id, Model model) {
+	public String editAuthor(@PathVariable("id") Long id, Model model) {
 
 		model.addAttribute("author", authorService.find(id));
 
 		return "authorForm";
 	}
-	
+
 	@RequestMapping(path = "/editAuthor/**", method = RequestMethod.POST)
-	public String processAuthorEditForm(@ModelAttribute("author") AuthorDto dto, Model model) {
+	public String processAuthorEditForm(@ModelAttribute("author") AuthorDto dto,
+			Model model) {
 
 		authorService.update(dto);
 
 		return "redirect:/day2/authors";
 	}
-	
+
 	@RequestMapping(path = "/deleteAuthor/{id}", method = RequestMethod.GET)
-	public String deleteAuthor(@PathVariable("id")Long id) {
-		
+	public String deleteAuthor(@PathVariable("id") Long id) {
+
 		authorService.remove(id);
-		
+
 		return "redirect:/day2/authors";
 
 	}
-	
+
 	// Zadanie 6 - Publisher
+
+	@RequestMapping(path = "/publishers", method = RequestMethod.GET)
+	public String getPublisherList() {
+
+		return "publisherList";
+	}
+
+	@RequestMapping(path = "/publisherForm", method = RequestMethod.GET)
+	public String getPublisherForm(Model model) {
+
+		model.addAttribute("publisher", new PublisherDto());
+
+		return "publisherForm";
+	}
+
+	@RequestMapping(path = "/processPublisherForm", method = RequestMethod.POST)
+	public String postNewPublisher(
+			@ModelAttribute("publisher") PublisherDto dto) {
+		publisherService.save(dto);
+		return "redirect:/day2/publishers";
+	}
+
+	@RequestMapping(path = "/editPublisher/{id}", method = RequestMethod.GET)
+	public String editPublisher(@PathVariable("id") Long id, Model model) {
+
+		model.addAttribute("publisher", publisherService.find(id));
+
+		return "publisherForm";
+	}
+
+	@RequestMapping(path = "/editPublisher/**", method = RequestMethod.POST)
+	public String processPublisherEditForm(
+			@ModelAttribute("publisher") PublisherDto dto, Model model) {
+
+		publisherService.update(dto);
+
+		return "redirect:/day2/publishers";
+	}
+	
+	@RequestMapping(path = "/deletePublisher/{id}", method = RequestMethod.GET)
+	public String deletePublisher(@PathVariable("id") Long id) {
+
+		try {
+			publisherService.remove(id);
+		} catch (Exception e) {
+			System.out.println("ERROR: Publisher can't be deleted");
+			return "redirect:/day2/publishers";
+		}
+
+		return "redirect:/day2/publishers";
+
+	}
 
 }

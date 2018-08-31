@@ -70,7 +70,7 @@
 </style>
 </head>
 <body>
-	<h1>Menu</h1>
+		<h1>Menu</h1>
 <h3>	<a href="../day2/addBookForm">Add new Book</a>
 		<a href="../day2/publishers">Publisher list</a>
 		<a href="../day2/authors">Authors list</a>
@@ -80,20 +80,19 @@
 		<a href="../day2/publisherForm">Add new Publisher</a>
 </h3>
 
-	<h1 align="center">Author list:</h1>
+
+	<h1 align="center">Publisher list:</h1>
 
 	<table class="tg" align="center">
 		<tr>
-			<th class="tg-kiyi">First name:</th>
-			<th class="tg-kiyi">Last name:</th>
+			<th class="tg-kiyi">Name:</th>
 			<th class="tg-g3xm">Action</th>
 		</tr>
-		<c:forEach items="${authors }" var="author">
+		<c:forEach items="${publishers }" var="publisher">
 			<tr>
-				<td align="center" class="tg-phtq">${author.firstName}</td>
-				<td align="center" class="tg-phtq">${author.lastName}</td>
-				<td align="center" class="tg-hmp3"><a href="editAuthor/${author.id}">Edit</a>
-					| <a href="deleteAuthor/${author.id}"> Delete</a></td>
+				<td align="center" class="tg-phtq">${publisher.name}</td>
+				<td align="center" class="tg-hmp3"><a href="editPublisher/${publisher.id}">Edit</a>
+					| <a href="deletePublisher/${publisher.id}"> Delete</a></td>
 			</tr>
 		</c:forEach>
 </body>

@@ -8,6 +8,7 @@
 <title>Add author</title>
 </head>
 <body>
+
 <h1>Menu</h1>
 <h3>	<a href="../day2/addBookForm">Add new Book</a>
 		<a href="../day2/publishers">Publisher list</a>
@@ -21,13 +22,12 @@
 
 <h1 align="center" >Author:</h1>
 	
-	<form:form method="post" modelAttribute="author" action="processAuthorForm"> 
+	<form:form method="post" modelAttribute="publisher" action="processPublisherForm"> 
 	
-	<h2>First name: <form:input path="firstName"/></h2>
-	<h2>Last name: <form:input path="lastName"/></h2>
+	<h2>Publisher name: <form:input path="name"/></h2>
 	
 	<form:hidden path="id" />
-	<input type="submit" value="Send">
+	<input type="submit" value="Add">
 	
 	</form:form>
 
