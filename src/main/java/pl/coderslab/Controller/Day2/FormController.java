@@ -124,29 +124,27 @@ public class FormController {
 
 	@RequestMapping(path = "/getBook/**", method = RequestMethod.POST)
 	public String processEditBook(@ModelAttribute("book") BookDto dto) {
-		
+
 		bookService.update(dto);
 
 		return "redirect:/day2/books";
 	}
-	
-	@RequestMapping(path="/confirmDelete/{id}", method=RequestMethod.GET)
-	public String confirmDeleteBook(@PathVariable("id")Long id, Model model) {
-		
+
+	@RequestMapping(path = "/confirmDelete/{id}", method = RequestMethod.GET)
+	public String confirmDeleteBook(@PathVariable("id") Long id, Model model) {
+
 		model.addAttribute("book", bookService.find(id));
-		
+
 		return "confirmDeletePage";
 	}
-	
-	@RequestMapping(path="/deleteBook/{id}", method=RequestMethod.GET)
-	public String deleteBook(@PathVariable("id")Long id) {
-		
+
+	@RequestMapping(path = "/deleteBook/{id}", method = RequestMethod.GET)
+	public String deleteBook(@PathVariable("id") Long id) {
+
 		bookService.remove(id);
-		
+
 		return "redirect:/day2/books";
 	}
-	
-	
 
 	// ModelAttributes
 
@@ -154,10 +152,61 @@ public class FormController {
 	private Collection<PublisherDto> getpublishers() {
 		return publisherService.getAll();
 	}
-	
+
 	@ModelAttribute("authors")
-	private Collection<AuthorDto> getAuthors(){
+	private Collection<AuthorDto> getAuthors() {
 		return authorService.getAll();
 	}
+
+	// Zadanie 5 - Author
+
+	@RequestMapping(path = "/authors", method = RequestMethod.GET)
+	public String showAuthorsList() {
+
+		return "authorsList";
+	}
+
+	@RequestMapping(path = "/addAuthor", method = RequestMethod.GET)
+	public String showAddAuthorForm(Model model) {
+
+		model.addAttribute("author", new AuthorDto());
+
+		return "authorForm";
+	}
+
+	@RequestMapping(path = "/processAuthorForm", method = RequestMethod.POST)
+	public String processAuthorForm(@ModelAttribute("author") AuthorDto dto) {
+
+		authorService.save(dto);
+
+		return "redirect:authors";
+	}
+
+	@RequestMapping(path = "/editAuthor/{id}", method = RequestMethod.GET)
+	public String editAuthor(@PathVariable("id")Long id, Model model) {
+
+		model.addAttribute("author", authorService.find(id));
+
+		return "authorForm";
+	}
+	
+	@RequestMapping(path = "/editAuthor/**", method = RequestMethod.POST)
+	public String processAuthorEditForm(@ModelAttribute("author") AuthorDto dto, Model model) {
+
+		authorService.update(dto);
+
+		return "redirect:/day2/authors";
+	}
+	
+	@RequestMapping(path = "/deleteAuthor/{id}", method = RequestMethod.GET)
+	public String deleteAuthor(@PathVariable("id")Long id) {
+		
+		authorService.remove(id);
+		
+		return "redirect:/day2/authors";
+
+	}
+	
+	// Zadanie 6 - Publisher
 
 }

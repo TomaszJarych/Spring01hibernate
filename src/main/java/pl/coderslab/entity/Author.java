@@ -32,8 +32,7 @@ public class Author {
 	@Column(name = "last_name")
 	private String lastName;
 
-	@ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER, cascade = {
-			CascadeType.ALL})
+	@ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
 	private Set<Book> books = new HashSet<>();
 
 	public Author(Long id, String firstName, String lastName) {
