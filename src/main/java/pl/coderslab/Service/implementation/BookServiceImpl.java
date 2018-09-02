@@ -79,16 +79,17 @@ public class BookServiceImpl implements BookService {
 		}
 		book.setDescription(dto.getDescription());
 		book.setId(dto.getId());
-
-		Publisher publisher = publisherDao
-				.findById(dto.getPublisherDto().getId());
-		if (Objects.nonNull(publisher)) {
-			book.setPublisher(publisher);
+		if (dto.isProposition() == false) {
+		    Publisher publisher = publisherDao
+			    .findById(dto.getPublisherDto().getId());
+		    book.setPublisher(publisher);
+		    
 		}
 
 		book.setRating(dto.getRating());
 		book.setTitle(dto.getTitle());
 		book.setPages(dto.getPages());
+		book.setProposition(dto.isProposition());
 
 		return book;
 	}
@@ -99,8 +100,11 @@ public class BookServiceImpl implements BookService {
 		book.setDescription(dto.getDescription());
 		book.setRating(dto.getRating());
 		book.setPages(dto.getPages());
-
-		book.setPublisher(publisherDao.findById(dto.getPublisherDto().getId()));
+		book.setProposition(dto.isProposition());
+		if (dto.isProposition() == false) {
+		    book.setPublisher(publisherDao.findById(dto.getPublisherDto().getId()));
+		}
+		
 		
 		if (Objects.nonNull(dto.getAuthors()) && !dto.getAuthors().isEmpty()) {
 			book.getAuthors().clear();
@@ -129,4 +133,10 @@ public class BookServiceImpl implements BookService {
 //			}
 //		}
 //	}
+
+	@Override
+	public Collection<BookDto> getAllPropositions() {
+	    return dao.getAllPropositions().stream().filter(Objects::nonNull).map(Book::toDto)
+			.collect(Collectors.toList());
+	}
 }

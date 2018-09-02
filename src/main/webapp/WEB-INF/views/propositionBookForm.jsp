@@ -42,32 +42,9 @@
 			<form:input path="description" />
 			<form:errors path="description" cssClass="errors" />
 		</h2>
-		<h2>
-			Rating: (*number format)
-			<form:input path="rating" />
-			<form:errors path="rating" cssClass="errors" />
-		</h2>
-		<h2>
-			Publisher:
-			<form:select path="publisherDto.id" items="${publishers}"
-				itemValue="id" itemLabel="name"></form:select>
-			<form:errors path="publisherDto" cssClass="errors" />
-		</h2>
-		<h2>
-			Authors:
-			<form:select size="5em" path="authors" multiple="true"
-				items="${authors }" itemLabel="fullName" itemValue="id" />
-			<form:errors path="authors" cssClass="errors" />
-		</h2>
-		<h2>
-			Pages:
-			<form:input path="pages" />
-			<form:errors path="pages" cssClass="errors" />
-		</h2>
-		<h2><form:checkbox	path="proposition"/>
+		<h2>Is pproposition? <form:checkbox	path="proposition"/>
 			<form:errors path="proposition" cssClass="errors" />
 		</h2>
-
 
 		<form:hidden path="id" />
 		<input type="submit" value="Send">

@@ -43,6 +43,9 @@ public class Book {
   private String description;
 
   private Integer pages;
+  
+  private boolean proposition;
+
 
   public Book() {}
 
@@ -101,8 +104,16 @@ public class Book {
   public void setPages(Integer pages) {
     this.pages = pages;
   }
+  
+  public boolean isProposition() {
+    return proposition;
+}
 
-  @Transient
+public void setProposition(boolean proposition) {
+    this.proposition = proposition;
+}
+
+@Transient
   public BookDto toDto() {
     BookDto dto = new BookDto();
     if (Objects.nonNull(getAuthors()) && !getAuthors().isEmpty()) {
@@ -113,6 +124,9 @@ public class Book {
     if (Objects.nonNull(getPublisher())) {
       dto.setPublisherDto(getPublisher().toSimpleDto());
     }
+    
+    dto.setProposition(isProposition());
+    
     dto.setRating(getRating());
     dto.setTitle(getTitle());
     dto.setPages(getPages());

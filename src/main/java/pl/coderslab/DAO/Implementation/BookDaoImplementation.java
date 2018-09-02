@@ -27,4 +27,10 @@ public class BookDaoImplementation extends AbstractDAO<Book, Long>
 				.getResultList();
 	}
 
+	@Override
+	public Collection<Book> getAllPropositions() {
+	    return entityManager.createQuery("SELECT b From Book b WHERE b.proposition = true")
+			.getResultList();
+	}
+
 }

@@ -3,131 +3,132 @@ package pl.coderslab.dto;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+
+import pl.coderslab.Validator.ValidationGroups.IsProposition;
 
 public class BookDto {
 
-  private Long id;
-  
-  @NotBlank
-  @Size(min=5)
-  private String title;
-  @NotNull
-  private Set<AuthorDto> authors = new HashSet<>();
-  
-  @NotNull
-  @Min(1)
-  @Max(10)
-  private Integer rating;
-  
-  @NotNull
-  private PublisherDto publisherDto;
+    private Long id;
 
-  @Size(max=600)
-  private String description;
+    @NotBlank(groups = { Default.class, IsProposition.class })
+    @Size(min = 5,groups = { Default.class,IsProposition.class })
+    private String title;
+    
+    
+    @NotNull(groups = { Default.class })
+    private Set<AuthorDto> authors = new HashSet<>();
 
-  @NotNull
-  @Min(1)
-  private Integer pages;
+    @NotNull(groups = { Default.class })
+    @Min(value=1,groups = { Default.class })
+    @Max(value=10,groups = { Default.class })
+    private Integer rating;
 
-  public BookDto(
-      Long id,
-      String title,
-      Set<AuthorDto> authors,
-      Integer rating,
-      PublisherDto publisherDto,
-      String description) {
-    this.id = id;
-    this.title = title;
-    this.authors = authors;
-    this.rating = rating;
-    this.publisherDto = publisherDto;
-    this.description = description;
-  }
+    @NotNull(groups = { Default.class })
+    private PublisherDto publisherDto;
 
-  public BookDto() {}
+    @Size(max = 600, groups = { Default.class, IsProposition.class })
+    private String description;
 
-  public Long getId() {
-    return id;
-  }
+    @NotNull(groups = { Default.class })
+    @Min(value = 1, groups = { Default.class })
+    private Integer pages;
+    
+    @AssertTrue(groups= {IsProposition.class})
+    @AssertFalse(groups = { Default.class })
+    private boolean proposition;
 
-  public String getTitle() {
-    return title;
-  }
+    public BookDto(Long id, String title, Set<AuthorDto> authors, Integer rating, PublisherDto publisherDto,
+	    String description) {
+	this.id = id;
+	this.title = title;
+	this.authors = authors;
+	this.rating = rating;
+	this.publisherDto = publisherDto;
+	this.description = description;
+    }
 
-  public Integer getRating() {
-    return rating;
-  }
+    public BookDto() {
+    }
 
-  public PublisherDto getPublisherDto() {
-    return publisherDto;
-  }
+    public Long getId() {
+	return id;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public String getTitle() {
+	return title;
+    }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Integer getRating() {
+	return rating;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public PublisherDto getPublisherDto() {
+	return publisherDto;
+    }
 
-  public void setRating(Integer rating) {
-    this.rating = rating;
-  }
+    public String getDescription() {
+	return description;
+    }
 
-  public void setPublisherDto(PublisherDto publisherDto) {
-    this.publisherDto = publisherDto;
-  }
+    public void setId(Long id) {
+	this.id = id;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public void setTitle(String title) {
+	this.title = title;
+    }
 
-  public Set<AuthorDto> getAuthors() {
-    return authors;
-  }
+    public void setRating(Integer rating) {
+	this.rating = rating;
+    }
 
-  public void setAuthors(Set<AuthorDto> authors) {
-    this.authors = authors;
-  }
+    public void setPublisherDto(PublisherDto publisherDto) {
+	this.publisherDto = publisherDto;
+    }
 
-  public Integer getPages() {
-    return pages;
-  }
+    public void setDescription(String description) {
+	this.description = description;
+    }
 
-  public void setPages(Integer pages) {
-    this.pages = pages;
-  }
+    public Set<AuthorDto> getAuthors() {
+	return authors;
+    }
 
-  @Override
-  public String toString() {
-    return "BookDto [id="
-        + id
-        + ", title="
-        + title
-        + ", authors="
-        + authors
-        + ", rating="
-        + rating
-        + ", publisherDto="
-        + publisherDto
-        + ", description="
-        + description
-        + ", pages="
-        + pages
-        + "]";
-  }
+    public void setAuthors(Set<AuthorDto> authors) {
+	this.authors = authors;
+    }
+
+    public Integer getPages() {
+	return pages;
+    }
+
+    public void setPages(Integer pages) {
+	this.pages = pages;
+    }
+
+    public boolean isProposition() {
+	return proposition;
+    }
+
+    public void setProposition(boolean proposition) {
+	this.proposition = proposition;
+    }
+
+    @Override
+    public String toString() {
+	return "BookDto [id=" + id + ", title=" + title + ", authors=" + authors + ", rating=" + rating
+		+ ", publisherDto=" + publisherDto + ", description=" + description + ", pages=" + pages + "]";
+    }
 }
 // 1. W projekcie `Spring01hibernate` utwórz encje o nazwie `Book`.
 // 2. Ustal nazwę tabeli bazy danych dla tej encji na `books`.
