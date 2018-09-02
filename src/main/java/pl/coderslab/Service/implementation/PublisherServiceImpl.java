@@ -15,51 +15,58 @@ import pl.coderslab.entity.Publisher;
 @Service
 public class PublisherServiceImpl implements PublisherService {
 
-	private final PublisherDao dao;
+    private final PublisherDao dao;
 
-	@Autowired
-	public PublisherServiceImpl(PublisherDao dao) {
-		this.dao = dao;
+    @Autowired
+    public PublisherServiceImpl(PublisherDao dao) {
+	this.dao = dao;
+    }
+
+    @Override
+    public PublisherDto save(PublisherDto dto) {
+	Publisher publisher = toPublisherEntity(dto);
+	dao.saveToDB(publisher);
+	return publisher.toDto();
+    }
+
+    @Override
+    public PublisherDto update(PublisherDto dto) {
+	Publisher publisher = toPublisherEntity(dto);
+	dao.updateEntity(publisher);
+	return publisher.toDto();
+    }
+
+    @Override
+    public PublisherDto find(Long id) {
+	return dao.findById(id).toDto();
+    }
+
+    @Override
+    public void remove(Long id) {
+	Publisher publisher = dao.findById(id);
+	dao.delete(publisher);
+
+    }
+
+    @Override
+    public Collection<PublisherDto> getAll() {
+	return dao.findAll().stream().filter(Objects::nonNull)
+		.map(Publisher::toDto)
+		.collect(Collectors.toList());
+    }
+
+    private Publisher toPublisherEntity(PublisherDto dto) {
+	Publisher publisher = new Publisher();
+	publisher.setId(dto.getId());
+	publisher.setName(dto.getName());
+	if (dto.getNip() != null) {
+	    publisher.setNip(dto.getNip());
+	}
+	if (dto.getRegon() != null) {
+	    publisher.setRegon(dto.getRegon());
 	}
 
-	@Override
-	public PublisherDto save(PublisherDto dto) {
-		Publisher publisher = toPublisherEntity(dto);
-		dao.saveToDB(publisher);
-		return publisher.toDto();
-	}
-
-	@Override
-	public PublisherDto update(PublisherDto dto) {
-		Publisher publisher = toPublisherEntity(dto);
-		dao.updateEntity(publisher);
-		return publisher.toDto();
-	}
-
-	@Override
-	public PublisherDto find(Long id) {
-		return dao.findById(id).toDto();
-	}
-
-	@Override
-	public void remove(Long id) {
-		Publisher publisher = dao.findById(id);
-		dao.delete(publisher);
-
-	}
-
-	@Override
-	public Collection<PublisherDto> getAll() {
-		return dao.findAll().stream().filter(Objects::nonNull)
-				.map(Publisher::toDto).collect(Collectors.toList());
-	}
-
-	private Publisher toPublisherEntity(PublisherDto dto) {
-		Publisher publisher = new Publisher();
-		publisher.setId(dto.getId());
-		publisher.setName(dto.getName());
-
-		return publisher;
-	}
+	return publisher;
+    }
 
 }

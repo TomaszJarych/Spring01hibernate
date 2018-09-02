@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,92 +21,117 @@ import pl.coderslab.dto.AuthorDto;
 @Table(name = "authors")
 public class Author {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(name = "first_name")
-	private String firstName;
+    @Column(name = "first_name")
+    private String firstName;
 
-	@Column(name = "last_name")
-	private String lastName;
+    @Column(name = "last_name")
+    private String lastName;
 
-	@ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
-	private Set<Book> books = new HashSet<>();
+    private String pesel;
 
-	public Author(Long id, String firstName, String lastName) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
+    private String email;
+
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
+    private Set<Book> books = new HashSet<>();
+
+    public Author(String firstName, String lastName, String pesel, String email, Set<Book> books) {
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.pesel = pesel;
+	this.email = email;
+	this.books = books;
+    }
+
+    public Author() {
+    }
+
+    public Long getId() {
+	return id;
+    }
+
+    public String getFirstName() {
+	return firstName;
+    }
+
+    public String getLastName() {
+	return lastName;
+    }
+
+    public void setId(Long id) {
+	this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+	this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+	this.lastName = lastName;
+    }
+
+    public Set<Book> getBooks() {
+	return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+	this.books = books;
+    }
+
+    @Override
+    public String toString() {
+	return "Author [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+    }
+
+    public String getPesel() {
+	return pesel;
+    }
+
+    public String getEmail() {
+	return email;
+    }
+
+    public void setPesel(String pesel) {
+	this.pesel = pesel;
+    }
+
+    public void setEmail(String email) {
+	this.email = email;
+    }
+
+    @Transient
+    public AuthorDto toDto() {
+
+	AuthorDto dto = new AuthorDto();
+	dto.setId(getId());
+	dto.setFirstName(getFirstName());
+	dto.setLastName(getLastName());
+	if (Objects.nonNull(getBooks()) && !getBooks().isEmpty()) {
+	    dto.setBooks(getBooks().stream().map(Book::toDto).collect(Collectors.toSet()));
 	}
 
-	public Author() {
+	return dto;
+    }
+
+    @Transient
+    public AuthorDto toSimpleDto() {
+
+	AuthorDto dto = new AuthorDto();
+
+	dto.setId(getId());
+	dto.setFirstName(getFirstName());
+	dto.setLastName(getLastName());
+	if (getPesel() != null) {
+	    dto.setPesel(getPesel());
 	}
-
-	public Long getId() {
-		return id;
+	
+	if (getEmail() != null) {
+	    dto.setEmail(getEmail());
 	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Set<Book> getBooks() {
-		return books;
-	}
-
-	public void setBooks(Set<Book> books) {
-		this.books = books;
-	}
-
-	@Override
-	public String toString() {
-		return "Author [id=" + id + ", firstName=" + firstName + ", lastName="
-				+ lastName + "]";
-	}
-
-	@Transient
-	public AuthorDto toDto() {
-
-		AuthorDto dto = new AuthorDto();
-		dto.setId(getId());
-		dto.setFirstName(getFirstName());
-		dto.setLastName(getLastName());
-		if (Objects.nonNull(getBooks()) && !getBooks().isEmpty()) {
-			dto.setBooks(getBooks()
-					.stream()
-					.map(Book::toDto)
-					.collect(Collectors.toSet()));
-		}
-
-		return dto;
-	}
-
-	@Transient
-	public AuthorDto toSimpleDto() {
-
-		AuthorDto dto = new AuthorDto();
-
-		dto.setId(getId());
-		dto.setFirstName(getFirstName());
-		dto.setLastName(getLastName());
-		return dto;
-	}
+	return dto;
+    }
 
 }

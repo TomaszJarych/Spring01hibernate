@@ -60,11 +60,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		converters.add(converter);
 		super.configureMessageConverters(converters);
 	}
-	@Bean
-	public Validator validator() {
-		return new LocalValidatorFactoryBean();
-	}
-
 	
 	// konwerter z zadania Dzień 2 - zadanie 4
 	
@@ -78,6 +73,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		return new AuthorConverter();
 	}
 	
+	// dodanie validatora
 	
+	@Bean
+	public Validator validator() {
+		return new LocalValidatorFactoryBean();
+	}
+
 	
 }

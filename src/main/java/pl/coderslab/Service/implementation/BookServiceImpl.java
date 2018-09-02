@@ -88,6 +88,7 @@ public class BookServiceImpl implements BookService {
 
 		book.setRating(dto.getRating());
 		book.setTitle(dto.getTitle());
+		book.setPages(dto.getPages());
 
 		return book;
 	}
@@ -97,6 +98,7 @@ public class BookServiceImpl implements BookService {
 		book.setTitle(dto.getTitle());
 		book.setDescription(dto.getDescription());
 		book.setRating(dto.getRating());
+		book.setPages(dto.getPages());
 
 		book.setPublisher(publisherDao.findById(dto.getPublisherDto().getId()));
 		
