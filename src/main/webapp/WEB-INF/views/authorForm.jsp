@@ -6,6 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Add author</title>
+<style>
+.errors {
+	color: red;
+	border-color: red;
+	border: 1px;
+	font: bold;
+}
+</style>
 </head>
 <body>
 <h1>Menu</h1>
@@ -23,8 +31,21 @@
 	
 	<form:form method="post" modelAttribute="author" action="processAuthorForm"> 
 	
-	<h2>First name: <form:input path="firstName"/></h2>
-	<h2>Last name: <form:input path="lastName"/></h2>
+	<h2>First name: <form:input path="firstName"/>
+		<form:errors path="firstName" cssClass="errors" />
+	</h2>
+	<h2>Last name: <form:input path="lastName"/>
+		<form:errors path="lastName" cssClass="errors" />
+	</h2>
+	<h2>Pesel: <form:input path="pesel"/>
+		<form:errors path="pesel" cssClass="errors" />
+	</h2>
+	<h2>email: <form:input path="email"/>
+		<form:errors path="email" cssClass="errors" />
+	</h2>
+	<h2>Year of birth: <form:input path="yearOfBirth"/>
+		<form:errors path="yearOfBirth" cssClass="errors" />
+	</h2>
 	
 	<form:hidden path="id" />
 	<input type="submit" value="Send">

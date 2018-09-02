@@ -66,8 +66,11 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 	if (dto.getEmail() != null) {
 	    author.setEmail(dto.getEmail());
-
 	}
+	if (dto.getYearOfBirth() != null) {
+	    author.setYearOfBirth(dto.getYearOfBirth());
+	}
+	
 	if (Objects.nonNull(dto.getBooks()) && !dto.getBooks().isEmpty()) {
 	    author.setBooks(
 		    dto.getBooks().stream()

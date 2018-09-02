@@ -38,12 +38,22 @@ public class Author {
     @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     private Set<Book> books = new HashSet<>();
 
+    private Integer yearOfBirth;
+
     public Author(String firstName, String lastName, String pesel, String email, Set<Book> books) {
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.pesel = pesel;
 	this.email = email;
 	this.books = books;
+    }
+
+    public Author(String firstName, String lastName, String pesel, String email, Integer yearOfBirth) {
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.pesel = pesel;
+	this.email = email;
+	this.yearOfBirth = yearOfBirth;
     }
 
     public Author() {
@@ -102,6 +112,14 @@ public class Author {
 	this.email = email;
     }
 
+    public Integer getYearOfBirth() {
+	return yearOfBirth;
+    }
+
+    public void setYearOfBirth(Integer yearOfBirth) {
+	this.yearOfBirth = yearOfBirth;
+    }
+
     @Transient
     public AuthorDto toDto() {
 
@@ -111,6 +129,16 @@ public class Author {
 	dto.setLastName(getLastName());
 	if (Objects.nonNull(getBooks()) && !getBooks().isEmpty()) {
 	    dto.setBooks(getBooks().stream().map(Book::toDto).collect(Collectors.toSet()));
+	}
+	if (getPesel() != null) {
+	    dto.setPesel(getPesel());
+	}
+
+	if (getEmail() != null) {
+	    dto.setEmail(getEmail());
+	}
+	if (getYearOfBirth() != null) {
+	    dto.setYearOfBirth(getYearOfBirth());
 	}
 
 	return dto;
@@ -127,9 +155,11 @@ public class Author {
 	if (getPesel() != null) {
 	    dto.setPesel(getPesel());
 	}
-	
 	if (getEmail() != null) {
 	    dto.setEmail(getEmail());
+	}
+	if (getYearOfBirth() != null) {
+	    dto.setYearOfBirth(getYearOfBirth());
 	}
 	return dto;
     }

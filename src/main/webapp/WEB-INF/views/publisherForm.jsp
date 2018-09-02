@@ -6,6 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Add author</title>
+<style>
+.errors {
+	color: red;
+	border-color: red;
+	border: 1px;
+	font: bold;
+}
+</style>
 </head>
 <body>
 
@@ -24,7 +32,16 @@
 	
 	<form:form method="post" modelAttribute="publisher" action="processPublisherForm"> 
 	
-	<h2>Publisher name: <form:input path="name"/></h2>
+	<h2>Publisher name: <form:input path="name"/>
+		<form:errors path="name" cssClass="errors" />
+	</h2>
+	
+	<h2>NIP: <form:input path="nip"/>
+		<form:errors path="nip" cssClass="errors" />
+	</h2>
+	<h2>REGON: <form:input path="regon"/>
+		<form:errors path="regon" cssClass="errors" />
+	</h2>
 	
 	<form:hidden path="id" />
 	<input type="submit" value="Add">

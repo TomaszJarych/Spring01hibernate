@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.pl.PESEL;
 
+import pl.coderslab.Validator.IsAdult;
+
 public class AuthorDto {
 
     private Long id;
@@ -22,6 +24,9 @@ public class AuthorDto {
 
     @Email
     private String email;
+    
+    @IsAdult
+    private Integer yearOfBirth;
 
     private Set<BookDto> books = new HashSet<>();
 
@@ -85,6 +90,15 @@ public class AuthorDto {
 
     public void setEmail(String email) {
 	this.email = email;
+    }
+    
+
+    public Integer getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public void setYearOfBirth(Integer yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
     }
 
     @Override

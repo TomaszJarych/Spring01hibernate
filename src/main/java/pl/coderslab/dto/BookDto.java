@@ -33,6 +33,7 @@ public class BookDto {
   @Size(max=600)
   private String description;
 
+  @NotNull
   @Min(1)
   private Integer pages;
 
