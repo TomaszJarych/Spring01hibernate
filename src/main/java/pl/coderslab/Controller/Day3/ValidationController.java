@@ -213,11 +213,16 @@ public class ValidationController {
     }
 
     @RequestMapping(path = "/getBook/**", method = RequestMethod.POST)
-    public String processEditBook(@ModelAttribute("book") BookDto dto) {
+    public String processEditBook(@Valid @ModelAttribute("book") BookDto dto, BindingResult result, 
+	    Model model) {
+	if (result.hasErrors()) {
+	    model.addAttribute("book", dto);
+	    return "bookForm";
 
-	bookService.update(dto);
-
-	return "redirect:/day3/validate/books";
+	} else {
+	    bookService.update(dto);
+	    return "redirect:/day3/validate/books";
+	}
     }
 
     @RequestMapping(path = "/confirmDelete/{id}", method = RequestMethod.GET)
@@ -265,7 +270,7 @@ public class ValidationController {
     @RequestMapping(path = "/processAuthorForm", method = RequestMethod.POST)
     public String processAuthorForm(@Valid @ModelAttribute("author") AuthorDto dto, BindingResult result, Model model) {
 	if (result.hasErrors()) {
-	    
+
 	    model.addAttribute("author", dto);
 	    return "authorForm";
 	} else {
@@ -285,11 +290,16 @@ public class ValidationController {
     }
 
     @RequestMapping(path = "/editAuthor/**", method = RequestMethod.POST)
-    public String processAuthorEditForm(@ModelAttribute("author") AuthorDto dto, Model model) {
+    public String processAuthorEditForm(@Valid @ModelAttribute("author") AuthorDto dto, BindingResult result,
+	    Model model) {
+	if (result.hasErrors()) {
+	    model.addAttribute("author", dto);
+	    return "authorForm";
+	} else {
+	    authorService.update(dto);
+	    return "redirect:/day3/validate/authors";
 
-	authorService.update(dto);
-
-	return "redirect:/day3/validate/authors";
+	}
     }
 
     @RequestMapping(path = "/deleteAuthor/{id}", method = RequestMethod.GET)
@@ -316,9 +326,15 @@ public class ValidationController {
     }
 
     @RequestMapping(path = "/processPublisherForm", method = RequestMethod.POST)
-    public String postNewPublisher(@ModelAttribute("publisher") PublisherDto dto) {
-	publisherService.save(dto);
-	return "redirect:/day3/validate/publishers";
+    public String postNewPublisher(@Valid @ModelAttribute("publisher") PublisherDto dto, BindingResult result,
+	    Model model) {
+	if (result.hasErrors()) {
+	    model.addAttribute("publisher", dto);
+	    return "publisherForm";
+	} else {
+	    publisherService.save(dto);
+	    return "redirect:/day3/validate/publishers";
+	}
     }
 
     @RequestMapping(path = "/editPublisher/{id}", method = RequestMethod.GET)
@@ -330,11 +346,16 @@ public class ValidationController {
     }
 
     @RequestMapping(path = "/editPublisher/**", method = RequestMethod.POST)
-    public String processPublisherEditForm(@ModelAttribute("publisher") PublisherDto dto, Model model) {
+    public String processPublisherEditForm(@Valid @ModelAttribute("publisher") PublisherDto dto, BindingResult result,
+	    Model model) {
+	if (result.hasErrors()) {
+	    model.addAttribute("publisher", dto);
+	    return "publisherForm";
+	} else {
+	    publisherService.update(dto);
+	    return "redirect:/day3/validate/publishers";
+	}
 
-	publisherService.update(dto);
-
-	return "redirect:/day3/validate/publishers";
     }
 
     @RequestMapping(path = "/deletePublisher/{id}", method = RequestMethod.GET)

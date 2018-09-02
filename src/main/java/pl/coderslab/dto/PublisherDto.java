@@ -3,6 +3,8 @@ package pl.coderslab.dto;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.pl.NIP;
 import org.hibernate.validator.constraints.pl.REGON;
@@ -14,9 +16,11 @@ public class PublisherDto {
     @NotBlank
     private String name;
     
+    @NotNull
     @NIP
     private String nip;
     
+    @NotNull
     @REGON
     private String regon;
 
