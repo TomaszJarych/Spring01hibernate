@@ -5,12 +5,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import pl.coderslab.DAO.CategoryDao;
 import pl.coderslab.Service.CategoryService;
 import pl.coderslab.dto.CategoryDTO;
 import pl.coderslab.entity.Category;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryDao categoryDao;
@@ -51,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
 		.collect(Collectors.toList());
     }
 
-    private Category toCategoryEntity(CategoryDTO dto) {
+    protected Category toCategoryEntity(CategoryDTO dto) {
 	Category category;
 	if (dto.getId() == null) {
 	    category = new Category();
