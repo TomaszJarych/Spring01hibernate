@@ -13,11 +13,9 @@ import pl.coderslab.Service.AuthorService;
 import pl.coderslab.Service.BookService;
 import pl.coderslab.Service.CategoryService;
 import pl.coderslab.Service.PublisherService;
-import pl.coderslab.dto.AuthorDto;
 import pl.coderslab.dto.BookDto;
 import pl.coderslab.dto.CategoryDTO;
 import pl.coderslab.dto.PublisherDto;
-import pl.coderslab.entity.Author;
 
 @Controller
 @RequestMapping("/day4")

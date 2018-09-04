@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.coderslab.DAO.PublisherDao;
+import pl.coderslab.Repository.PublisherRepository;
 import pl.coderslab.Service.PublisherService;
 import pl.coderslab.dto.PublisherDto;
 import pl.coderslab.entity.Publisher;
@@ -16,10 +17,12 @@ import pl.coderslab.entity.Publisher;
 public class PublisherServiceImpl implements PublisherService {
 
     private final PublisherDao dao;
+    private final PublisherRepository publisherRepository;
 
     @Autowired
-    public PublisherServiceImpl(PublisherDao dao) {
+    public PublisherServiceImpl(PublisherDao dao, PublisherRepository publisherRepository) {
 	this.dao = dao;
+	this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -68,5 +71,17 @@ public class PublisherServiceImpl implements PublisherService {
 
 	return publisher;
     }
+
+    @Override
+    public PublisherDto findByNip(String nip) {
+	return publisherRepository.findByNip(nip).toDto();
+    }
+
+    @Override
+    public PublisherDto findByRegon(String regon) {
+	return publisherRepository.findByRegon(regon).toDto();
+    }
+    
+    
 
 }

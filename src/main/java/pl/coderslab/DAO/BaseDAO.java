@@ -1,7 +1,6 @@
 package pl.coderslab.DAO;
 
 import java.io.Serializable;
-
 import java.util.Collection;
 
 public interface BaseDAO<E, I extends Serializable> {
