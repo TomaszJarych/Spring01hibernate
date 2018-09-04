@@ -5,6 +5,9 @@ import java.util.Collection;
 import pl.coderslab.dto.AuthorDto;
 import pl.coderslab.dto.BookDto;
 import pl.coderslab.dto.CategoryDTO;
+import pl.coderslab.dto.PublisherDto;
+import pl.coderslab.entity.Book;
+import pl.coderslab.entity.Publisher;
 
 public interface BookService extends BaseCRUD<BookDto, Long> {
     Collection<BookDto> getAllPropositions();
@@ -20,5 +23,11 @@ public interface BookService extends BaseCRUD<BookDto, Long> {
     Collection<BookDto> findBooksByAuthorId(Long id);
     
     Collection<BookDto> findBooksByAuthors(AuthorDto authorDto);
+    
+    Collection<BookDto> findBooksByPublisher(PublisherDto dto);
+    
+    Collection<BookDto> findBooksByRating(Integer rating);
+    
+    BookDto findFirstBookByCategoryOrderByTitleAsc(CategoryDTO dto);
 
 }

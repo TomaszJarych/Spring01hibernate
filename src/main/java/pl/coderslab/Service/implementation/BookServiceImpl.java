@@ -16,6 +16,7 @@ import pl.coderslab.Service.BookService;
 import pl.coderslab.dto.AuthorDto;
 import pl.coderslab.dto.BookDto;
 import pl.coderslab.dto.CategoryDTO;
+import pl.coderslab.dto.PublisherDto;
 import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Book;
 import pl.coderslab.entity.Category;
@@ -165,7 +166,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Collection<BookDto> findBooksByCategory(CategoryDTO category) {
 	Category categoryToFind = categoryDao.findById(category.getId());
-	
+
 	return bookRepository.findBooksByCategory(categoryToFind).stream().filter(Objects::nonNull).map(Book::toDto)
 		.collect(Collectors.toList());
     }
@@ -173,27 +174,40 @@ public class BookServiceImpl implements BookService {
     @Override
     public Collection<BookDto> findBooksByCategoryID(Long id) {
 	return bookRepository.findBooksByCategoryId(id).stream().filter(Objects::nonNull).map(Book::toDto)
-	.collect(Collectors.toList());
+		.collect(Collectors.toList());
     }
 
     @Override
     public Collection<BookDto> findBooksByAuthorId(Long id) {
 	return collectionConverse(bookRepository.findBooksByAuthorsId(id));
-		
+
     }
-    
-    
 
     @Override
     public Collection<BookDto> findBooksByAuthors(AuthorDto authorDto) {
 	Author author = authorDao.findById(authorDto.getId());
-	
+
 	return collectionConverse(bookRepository.findBooksByAuthors(author));
     }
 
-    private Collection<BookDto> collectionConverse(Collection<Book> collection){
-	return collection.stream().filter(Objects::nonNull).map(Book::toDto)
-		.collect(Collectors.toList());
+    @Override
+    public Collection<BookDto> findBooksByPublisher(PublisherDto dto) {
+	return collectionConverse(bookRepository.findBooksByPublisher(publisherDao.findById(dto.getId())));
+    }
+
+    @Override
+    public Collection<BookDto> findBooksByRating(Integer rating) {
 	
+	return collectionConverse(bookRepository.findBooksByRating(rating));
+    }
+    
+    @Override
+    public BookDto findFirstBookByCategoryOrderByTitleAsc(CategoryDTO dto) {
+	Category category = categoryDao.findById(dto.getId());
+	return bookRepository.findFirstBookByCategoryOrderByTitleAsc(category).toDto();
+    }
+
+    private Collection<BookDto> collectionConverse(Collection<Book> collection) {
+	return collection.stream().filter(Objects::nonNull).map(Book::toDto).collect(Collectors.toList());
     }
 }

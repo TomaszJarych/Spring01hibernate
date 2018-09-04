@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.Service.AuthorService;
 import pl.coderslab.Service.BookService;
 import pl.coderslab.Service.CategoryService;
+import pl.coderslab.Service.PublisherService;
 import pl.coderslab.dto.AuthorDto;
 import pl.coderslab.dto.BookDto;
+import pl.coderslab.dto.CategoryDTO;
+import pl.coderslab.dto.PublisherDto;
 import pl.coderslab.entity.Author;
 
 @Controller
@@ -22,14 +25,16 @@ public class BookRepositoryController {
 
     private final BookService bookService;
     private final CategoryService categoryService;
+    private final PublisherService publisherService;
     private final AuthorService authorService;
 
     @Autowired
     public BookRepositoryController(BookService bookService, CategoryService categoryService,
-	    AuthorService authorService) {
+	    AuthorService authorService,PublisherService publisherService) {
 	this.bookService = bookService;
 	this.categoryService = categoryService;
 	this.authorService = authorService;
+	this.publisherService = publisherService;
     }
 
     @RequestMapping(path = "/getNumberOfBooks", method = RequestMethod.GET)
@@ -72,4 +77,27 @@ public class BookRepositoryController {
 	return bookService.findBooksByAuthors(authorService.find(3L));
     }
 
+    @RequestMapping(path="/getBooksByPublisher", method=RequestMethod.GET)
+    @ResponseBody
+    public Collection<BookDto> findBooksByPublisher() {
+	PublisherDto dto = publisherService.find(1L);
+	return bookService.findBooksByPublisher(dto);
+    }
+    
+    
+    @RequestMapping(path="/getBooksByRating/{rating}", method=RequestMethod.GET)
+    @ResponseBody
+    public Collection<BookDto> findBooksByRating(@PathVariable("rating")Integer rating){
+	return bookService.findBooksByRating(rating);
+    }
+    @RequestMapping(path="/getFirstBookByCategory", method=RequestMethod.GET)
+    @ResponseBody
+    public BookDto findFirstBookByCategoryOrderByTitleAsc() {
+	CategoryDTO dto = categoryService.find(3L);
+	
+	return bookService.findFirstBookByCategoryOrderByTitleAsc(dto);
+    }
+    
 }
+
+
