@@ -45,9 +45,25 @@ public class Book {
   private Integer pages;
   
   private boolean proposition;
+  
+  @ManyToOne(fetch=FetchType.EAGER)
+  @JoinColumn(name="category_id")
+  private Category category;
 
 
-  public Book() {}
+  public Book(Long id, String title, Set<Author> authors, Integer rating, Publisher publisher, String description,
+	Integer pages, boolean proposition) {
+    this.id = id;
+    this.title = title;
+    this.authors = authors;
+    this.rating = rating;
+    this.publisher = publisher;
+    this.description = description;
+    this.pages = pages;
+    this.proposition = proposition;
+}
+
+public Book() {}
 
   public Long getId() {
     return id;
@@ -113,6 +129,15 @@ public void setProposition(boolean proposition) {
     this.proposition = proposition;
 }
 
+
+public Category getCategory() {
+    return category;
+}
+
+public void setCategory(Category category) {
+    this.category = category;
+}
+
 @Transient
   public BookDto toDto() {
     BookDto dto = new BookDto();
@@ -126,11 +151,13 @@ public void setProposition(boolean proposition) {
     }
     
     dto.setProposition(isProposition());
-    
+  
+    dto.setCategory(getCategory());
     dto.setRating(getRating());
     dto.setTitle(getTitle());
     dto.setPages(getPages());
 
     return dto;
   }
+
 }

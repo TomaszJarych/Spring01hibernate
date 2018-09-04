@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import pl.coderslab.DAO.AuthorDao;
 import pl.coderslab.DAO.BookDao;
+import pl.coderslab.DAO.CategoryDao;
 import pl.coderslab.DAO.PublisherDao;
+import pl.coderslab.Repository.BookRepository;
 import pl.coderslab.Service.BookService;
 import pl.coderslab.dto.AuthorDto;
 import pl.coderslab.dto.BookDto;
@@ -22,13 +24,17 @@ public class BookServiceImpl implements BookService {
 	private final BookDao dao;
 	private final PublisherDao publisherDao;
 	private final AuthorDao authorDao;
+	private final BookRepository bookRepository;
+	private final CategoryDao categoryDao;
 
 	@Autowired
 	public BookServiceImpl(BookDao dao, PublisherDao publisherDao,
-			AuthorDao authorDao) {
+			AuthorDao authorDao,BookRepository bookRepository,CategoryDao categoryDao) {
 		this.dao = dao;
 		this.publisherDao = publisherDao;
 		this.authorDao = authorDao;
+		this.bookRepository = bookRepository;
+		this.categoryDao= categoryDao;
 	}
 
 	@Override
@@ -85,6 +91,10 @@ public class BookServiceImpl implements BookService {
 		    book.setPublisher(publisher);
 		    
 		}
+		
+		if (dto.getCategory() != null) {
+		    book.setCategory(categoryDao.findById(dto.getCategory().getId()));
+		}
 
 		book.setRating(dto.getRating());
 		book.setTitle(dto.getTitle());
@@ -101,6 +111,9 @@ public class BookServiceImpl implements BookService {
 		book.setRating(dto.getRating());
 		book.setPages(dto.getPages());
 		book.setProposition(dto.isProposition());
+		if (dto.getCategory() != null) {
+		    book.setCategory(categoryDao.findById(dto.getCategory().getId()));
+		}
 		if (dto.isProposition() == false) {
 		    book.setPublisher(publisherDao.findById(dto.getPublisherDto().getId()));
 		}
@@ -139,4 +152,12 @@ public class BookServiceImpl implements BookService {
 	    return dao.getAllPropositions().stream().filter(Objects::nonNull).map(Book::toDto)
 			.collect(Collectors.toList());
 	}
+
+	@Override
+	public long getBookCount() {
+	    return bookRepository.count();
+	}
+	
+	
+	
 }

@@ -7,4 +7,6 @@ import pl.coderslab.dto.BookDto;
 public interface BookService extends BaseCRUD<BookDto, Long> {
     Collection<BookDto> getAllPropositions();
 
+    long getBookCount();
+    
 }

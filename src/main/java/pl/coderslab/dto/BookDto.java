@@ -15,6 +15,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 import pl.coderslab.Validator.ValidationGroups.IsProposition;
+import pl.coderslab.entity.Category;
 
 public class BookDto {
 
@@ -46,6 +47,8 @@ public class BookDto {
     @AssertTrue(groups= {IsProposition.class})
     @AssertFalse(groups = { Default.class })
     private boolean proposition;
+    
+    private Category category;
 
     public BookDto(Long id, String title, Set<AuthorDto> authors, Integer rating, PublisherDto publisherDto,
 	    String description) {
@@ -122,6 +125,15 @@ public class BookDto {
 
     public void setProposition(boolean proposition) {
 	this.proposition = proposition;
+    }
+    
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
