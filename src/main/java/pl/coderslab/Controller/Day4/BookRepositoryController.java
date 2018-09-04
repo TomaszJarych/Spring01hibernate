@@ -96,6 +96,42 @@ public class BookRepositoryController {
 	return bookService.findFirstBookByCategoryOrderByTitleAsc(dto);
     }
     
+    @RequestMapping(path="/getBookQuery/{title}", method=RequestMethod.GET)
+    @ResponseBody
+    public Collection<BookDto> getBooksByTitle(@PathVariable("title")String title){
+	return bookService.findAllBooksByTitleQuery(title);
+    }
+    @RequestMapping(path="/getBookByCategoryQuery", method=RequestMethod.GET)
+    @ResponseBody
+    public Collection<BookDto> getBooksByCategory(){
+	CategoryDTO category = categoryService.find(3L);
+	
+	return bookService.findAllBooksByCategoryQuery(category);
+    }
+    
+    @RequestMapping(path="/getBookByRating/{r1}/{r2}", method=RequestMethod.GET)
+    @ResponseBody
+    public Collection<BookDto> getBooksByCategory(@PathVariable("r1")Integer rating1, @PathVariable("r2")Integer rating2){
+	
+	return bookService.findAllBooksByBetweenRating(rating1, rating2);
+    }
+    
+    @RequestMapping(path="/getBookByPublisherQuery", method=RequestMethod.GET)
+    @ResponseBody
+    public Collection<BookDto> getBookByPublisherQuery(){
+	PublisherDto dto = publisherService.find(1L);
+	
+	return bookService.findAllBooksByPublisherQuery(dto);
+    }
+    
+    @RequestMapping(path="/findFirstBookByCategorySortedByTitleQuery", method=RequestMethod.GET)
+    @ResponseBody
+    public BookDto findFirstBookByCategorySortedByTitleQuery(){
+	CategoryDTO dto = categoryService.find(3L);
+	
+	return bookService.findFirstBookByCategorySortedByTitleQuery(dto);
+    }
+    
 }
 
 

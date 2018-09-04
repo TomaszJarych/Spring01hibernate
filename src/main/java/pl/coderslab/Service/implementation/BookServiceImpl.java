@@ -210,4 +210,39 @@ public class BookServiceImpl implements BookService {
     private Collection<BookDto> collectionConverse(Collection<Book> collection) {
 	return collection.stream().filter(Objects::nonNull).map(Book::toDto).collect(Collectors.toList());
     }
+
+    @Override
+    public Collection<BookDto> findAllBooksByTitleQuery(String title) {
+	return collectionConverse(bookRepository.findAllBooksByTitleQuery(title));
+    }
+
+    @Override
+    public Collection<BookDto> findAllBooksByCategoryQuery(CategoryDTO categoryDTO) {
+	Category category = categoryDao.findById(categoryDTO.getId());
+	
+	return collectionConverse(bookRepository.findAllBooksByCategoryQuery(category));
+    }
+
+    @Override
+    public Collection<BookDto> findAllBooksByBetweenRating(Integer rating1, Integer rating2) {
+	return collectionConverse(bookRepository.findAllBooksByBetweenRating(rating1, rating2));
+    }
+
+    @Override
+    public Collection<BookDto> findAllBooksByPublisherQuery(PublisherDto dto) {
+	Publisher publisher = publisherDao.findById(dto.getId());
+	
+	return collectionConverse(bookRepository.findAllBooksByPublisherQuery(publisher));
+    }
+
+    @Override
+    public BookDto findFirstBookByCategorySortedByTitleQuery(CategoryDTO categoryDTO) {
+	Category category = categoryDao.findById(categoryDTO.getId());
+	
+	return bookRepository.findFirstBookByCategorySortedByTitleQuery(category).toDto();
+    }
+    
+    
+    
+    
 }
