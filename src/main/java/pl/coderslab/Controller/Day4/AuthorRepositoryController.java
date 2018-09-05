@@ -1,5 +1,7 @@
 package pl.coderslab.Controller.Day4;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import pl.coderslab.Service.AuthorService;
 import pl.coderslab.Service.BookService;
 import pl.coderslab.Service.CategoryService;
 import pl.coderslab.Service.PublisherService;
+import pl.coderslab.dto.AuthorDto;
 import pl.coderslab.dto.PublisherDto;
 
 @Controller
@@ -40,5 +43,16 @@ public class AuthorRepositoryController {
     @ResponseBody
     public PublisherDto findByRegon(@PathVariable("regon") String regon) {
 	return publisherService.findByRegon(regon);
+    }
+    
+    @RequestMapping(path = "/getAuthorByEmailQuery/{beginning}")
+    @ResponseBody
+    public Collection<AuthorDto> findByEmailBeginningQuery(@PathVariable("beginning") String beginning) {
+	return authorService.findByEmailBeginningQuery(beginning);
+    }
+    @RequestMapping(path = "/findByPeselBeginningWithQuery/{beginning}")
+    @ResponseBody
+    public Collection<AuthorDto> findByPeselBeginningWithQuery(@PathVariable("beginning") String beginning) {
+	return authorService.findByPeselBeginningWithQuery(beginning);
     }
 }

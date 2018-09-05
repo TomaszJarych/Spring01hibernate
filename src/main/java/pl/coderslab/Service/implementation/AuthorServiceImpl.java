@@ -96,4 +96,19 @@ public class AuthorServiceImpl implements AuthorService {
 	return authorRepository.findByLastName(lastName).stream().filter(Objects::nonNull).map(Author::toDto)
 		.collect(Collectors.toList());
     }
+
+    @Override
+    public Collection<AuthorDto> findByEmailBeginningQuery(String beginning) {
+	return authorRepository.findByEmailBeginningQuery(beginning).stream().filter(Objects::nonNull).map(Author::toDto)
+		.collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<AuthorDto> findByPeselBeginningWithQuery(String beginning) {
+	return authorRepository.findByPeselBeginningWithQuery(beginning).stream().filter(Objects::nonNull).map(Author::toDto)
+		.collect(Collectors.toList());
+    }
+    
+    
+    
 }
