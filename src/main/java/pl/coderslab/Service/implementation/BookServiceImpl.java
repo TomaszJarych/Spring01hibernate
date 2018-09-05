@@ -241,6 +241,13 @@ public class BookServiceImpl implements BookService {
 	
 	return bookRepository.findFirstBookByCategorySortedByTitleQuery(category).toDto();
     }
+
+    @Override
+    public void setRatingToAllBooks(int rating) {
+	bookRepository.resetRating(rating);
+	
+    }
+    
     
     
     

@@ -37,5 +37,7 @@ public interface BookService extends BaseCRUD<BookDto, Long> {
     Collection<BookDto> findAllBooksByPublisherQuery(PublisherDto dto);
     
     BookDto findFirstBookByCategorySortedByTitleQuery(CategoryDTO categoryDTO);
+    
+    void setRatingToAllBooks(int rating);
 
 }

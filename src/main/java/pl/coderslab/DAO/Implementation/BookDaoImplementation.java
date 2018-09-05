@@ -11,26 +11,21 @@ import pl.coderslab.entity.Book;
 
 @Component
 @Transactional
-public class BookDaoImplementation extends AbstractDAO<Book, Long>
-		implements
-			BookDao {
+public class BookDaoImplementation extends AbstractDAO<Book, Long> implements BookDao {
 
-	@Override
-	public Book findById(Long id) {
+    @Override
+    public Book findById(Long id) {
 
-		return entityManager.find(Book.class, id);
-	}
+	return entityManager.find(Book.class, id);
+    }
 
-	@Override
-	public Collection<Book> findAll() {
-		return entityManager.createQuery("SELECT b From Book b")
-				.getResultList();
-	}
+    @Override
+    public Collection<Book> findAll() {
+	return entityManager.createQuery("SELECT b From Book b").getResultList();
+    }
 
-	@Override
-	public Collection<Book> getAllPropositions() {
-	    return entityManager.createQuery("SELECT b From Book b WHERE b.proposition = true")
-			.getResultList();
-	}
-
+    @Override
+    public Collection<Book> getAllPropositions() {
+	return entityManager.createQuery("SELECT b From Book b WHERE b.proposition = true").getResultList();
+    }
 }

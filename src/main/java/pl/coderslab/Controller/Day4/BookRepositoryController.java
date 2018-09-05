@@ -28,7 +28,7 @@ public class BookRepositoryController {
 
     @Autowired
     public BookRepositoryController(BookService bookService, CategoryService categoryService,
-	    AuthorService authorService,PublisherService publisherService) {
+	    AuthorService authorService, PublisherService publisherService) {
 	this.bookService = bookService;
 	this.categoryService = categoryService;
 	this.authorService = authorService;
@@ -63,75 +63,83 @@ public class BookRepositoryController {
 	return bookService.findBooksByCategoryID(id);
     }
 
-    @RequestMapping(path="/getBooksByAuthor/{id}", method=RequestMethod.GET)
+    @RequestMapping(path = "/getBooksByAuthor/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Collection<BookDto> findBooksByAuthorId(@PathVariable("id") Long id) {
 	return bookService.findBooksByAuthorId(id);
     }
-    
-    @RequestMapping(path="/getBooksByAuthor", method=RequestMethod.GET)
+
+    @RequestMapping(path = "/getBooksByAuthor", method = RequestMethod.GET)
     @ResponseBody
     public Collection<BookDto> findBooksByAuthor() {
 	return bookService.findBooksByAuthors(authorService.find(3L));
     }
 
-    @RequestMapping(path="/getBooksByPublisher", method=RequestMethod.GET)
+    @RequestMapping(path = "/getBooksByPublisher", method = RequestMethod.GET)
     @ResponseBody
     public Collection<BookDto> findBooksByPublisher() {
 	PublisherDto dto = publisherService.find(1L);
 	return bookService.findBooksByPublisher(dto);
     }
-    
-    
-    @RequestMapping(path="/getBooksByRating/{rating}", method=RequestMethod.GET)
+
+    @RequestMapping(path = "/getBooksByRating/{rating}", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<BookDto> findBooksByRating(@PathVariable("rating")Integer rating){
+    public Collection<BookDto> findBooksByRating(@PathVariable("rating") Integer rating) {
 	return bookService.findBooksByRating(rating);
     }
-    @RequestMapping(path="/getFirstBookByCategory", method=RequestMethod.GET)
+
+    @RequestMapping(path = "/getFirstBookByCategory", method = RequestMethod.GET)
     @ResponseBody
     public BookDto findFirstBookByCategoryOrderByTitleAsc() {
 	CategoryDTO dto = categoryService.find(3L);
-	
+
 	return bookService.findFirstBookByCategoryOrderByTitleAsc(dto);
     }
-    
-    @RequestMapping(path="/getBookQuery/{title}", method=RequestMethod.GET)
+
+    @RequestMapping(path = "/getBookQuery/{title}", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<BookDto> getBooksByTitle(@PathVariable("title")String title){
+    public Collection<BookDto> getBooksByTitle(@PathVariable("title") String title) {
 	return bookService.findAllBooksByTitleQuery(title);
     }
-    @RequestMapping(path="/getBookByCategoryQuery", method=RequestMethod.GET)
+
+    @RequestMapping(path = "/getBookByCategoryQuery", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<BookDto> getBooksByCategory(){
+    public Collection<BookDto> getBooksByCategory() {
 	CategoryDTO category = categoryService.find(3L);
-	
+
 	return bookService.findAllBooksByCategoryQuery(category);
     }
-    
-    @RequestMapping(path="/getBookByRating/{r1}/{r2}", method=RequestMethod.GET)
+
+    @RequestMapping(path = "/getBookByRating/{r1}/{r2}", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<BookDto> getBooksByCategory(@PathVariable("r1")Integer rating1, @PathVariable("r2")Integer rating2){
-	
+    public Collection<BookDto> getBooksByCategory(@PathVariable("r1") Integer rating1,
+	    @PathVariable("r2") Integer rating2) {
+
 	return bookService.findAllBooksByBetweenRating(rating1, rating2);
     }
-    
-    @RequestMapping(path="/getBookByPublisherQuery", method=RequestMethod.GET)
+
+    @RequestMapping(path = "/getBookByPublisherQuery", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<BookDto> getBookByPublisherQuery(){
+    public Collection<BookDto> getBookByPublisherQuery() {
 	PublisherDto dto = publisherService.find(1L);
-	
+
 	return bookService.findAllBooksByPublisherQuery(dto);
     }
-    
-    @RequestMapping(path="/findFirstBookByCategorySortedByTitleQuery", method=RequestMethod.GET)
+
+    @RequestMapping(path = "/findFirstBookByCategorySortedByTitleQuery", method = RequestMethod.GET)
     @ResponseBody
-    public BookDto findFirstBookByCategorySortedByTitleQuery(){
+    public BookDto findFirstBookByCategorySortedByTitleQuery() {
 	CategoryDTO dto = categoryService.find(3L);
-	
+
 	return bookService.findFirstBookByCategorySortedByTitleQuery(dto);
     }
-    
+
+    @RequestMapping(path = "/setRatingAndShowAllBooks/{rating}", 
+	    method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<BookDto> setRatingAndShowAllBooks(@PathVariable("rating")int rating) {
+		bookService.setRatingToAllBooks(rating);
+	return bookService.getAll();
+    }
+
 }
-
-

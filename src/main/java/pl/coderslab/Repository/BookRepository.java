@@ -5,12 +5,13 @@ import java.util.Collection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import pl.coderslab.Repository.CustomRepository.BookRepositoryCustom;
 import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Book;
 import pl.coderslab.entity.Category;
 import pl.coderslab.entity.Publisher;
 
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<Book, Long>, BookRepositoryCustom{
 
     Collection<Book> findBooksByTitle(String title);
 
