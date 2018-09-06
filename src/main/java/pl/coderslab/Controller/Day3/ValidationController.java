@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validator;
+import javax.validation.groups.Default;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -184,7 +186,7 @@ public class ValidationController {
     }
 
     @RequestMapping(path = "/processBookForm", method = RequestMethod.POST)
-    public String processAddBookForm(@Valid @ModelAttribute("book") BookDto dto, BindingResult result, Model model) {
+    public String processAddBookForm(@Validated(Default.class) @ModelAttribute("book") BookDto dto, BindingResult result, Model model) {
 	if (result.hasErrors()) {
 	    model.addAttribute("book", dto);
 
@@ -213,7 +215,7 @@ public class ValidationController {
     }
 
     @RequestMapping(path = "/getBook/**", method = RequestMethod.POST)
-    public String processEditBook(@Valid @ModelAttribute("book") BookDto dto, BindingResult result, 
+    public String processEditBook(@Validated(Default.class) @ModelAttribute("book") BookDto dto, BindingResult result, 
 	    Model model) {
 	if (result.hasErrors()) {
 	    model.addAttribute("book", dto);

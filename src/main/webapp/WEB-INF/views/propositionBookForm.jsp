@@ -7,26 +7,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Add book form</title>
-<style>
-.errors {
-	color: red;
-	border-color: red;
-	border: 1px;
-	font: bold;
-}
-</style>
 
 </head>
 <body>
 	<h1>Menu</h1>
-	<h3>
-		<a href="../day2/addBookForm">Add new Book</a> <a
-			href="../day2/publishers">Publisher list</a> <a
-			href="../day2/authors">Authors list</a> <a href="../day2/books">Book
-			list</a> <a href="../day2/addBookForm">Add new Book</a> <a
-			href="../day2/addAuthor">Add new Author</a> <a
-			href="../day2/publisherForm">Add new Publisher</a>
-	</h3>
+<h3>	<a href="http://localhost:8080/Spring01hibernate/day3/validate/addBookForm">Add new Book</a>
+		<a href="http://localhost:8080/Spring01hibernate/day3/validate/publishers">Publisher list</a>
+		<a href="http://localhost:8080/Spring01hibernate/day3/validate/authors">Authors list</a>
+		<a href="http://localhost:8080/Spring01hibernate/day3/validate/books">Book list</a>
+		<a href="http://localhost:8080/Spring01hibernate/day3/validate/addAuthor">Add new Author</a>
+		<a href="http://localhost:8080/Spring01hibernate/day3/validate/processPublisherForm">Add new Publisher</a>
+</h3>
 
 	<h1 align="center">Book:</h1>
 
